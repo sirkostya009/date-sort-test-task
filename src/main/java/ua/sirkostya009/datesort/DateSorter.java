@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Marking will be based upon producing a readable, well engineered solution rather than factors
@@ -39,16 +40,16 @@ public class DateSorter {
                     boolean isAR = monthsWithR.contains(a.getMonthValue());
                     boolean isBR = monthsWithR.contains(b.getMonthValue());
 
-                    if (isAR && isBR) {
+                    if (isAR && isBR) { // if both dates have 'r', sort ascending
                         return a.compareTo(b);
-                    } else if (isAR) {
+                    } else if (isAR) { // move b to the bottom if 'r' is in a
                         return -1;
-                    } else if (isBR) {
+                    } else if (isBR) { // move b to top if 'r' is in b
                         return 1;
-                    } else {
+                    } else { // if neither date has 'r', sort descending
                         return b.compareTo(a);
                     }
                 })
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }
